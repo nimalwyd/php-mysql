@@ -1,0 +1,14 @@
+<?php
+
+
+//$id= $_GET['id'];
+$id= isset($_GET['id']) ? $_GET['id'] : '1';
+//echo $id;
+echo htmlspecialchars($id);  // as a precaution against hacking using html codes as part of string passed or using other scripting languages like java script  in the string passed
+
+?>
+<!-- url encode helps to deal with special character in the query part of the url -->
+
+<a href="show.php?name=<?php echo urlencode('nimal krishna'); ?>">Link</a><br />
+<a href="show.php?company=<?php echo  urlencode('nimal&nirmal'); ?>">Link</a><br />
+<a href="show.php?query=<?php echo  urlencode('!#*?'); ?>">Link</a><br />
