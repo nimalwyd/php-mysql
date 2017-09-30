@@ -1,3 +1,6 @@
+<?php require_once('../../../private/initialize.php'); ?>
+<?php $page_title = 'Show Subject'; ?>
+<?php include(SHARED_PATH . '/staff_header.php'); ?>
 <?php
 
 
@@ -5,6 +8,13 @@
 $id= isset($_GET['id']) ? $_GET['id'] : '1';
 //echo $id;
 echo htmlspecialchars($id);  // as a precaution against hacking using html codes as part of string passed or using other scripting languages like java script  in the string passed
+ $sql = "SELECT * FROM subjects ";
+    $sql .= "WHERE id='" . $id . "'";
+    $result = mysqli_query($db, $sql);
+    confirm_result_set($result);
+    $subject = mysqli_fetch_assoc($result);
+    mysqli_free_result($result);
+
 
 ?>
 
@@ -12,5 +22,31 @@ echo htmlspecialchars($id);  // as a precaution against hacking using html codes
 <a class="back-link" href="<?php echo url_for('/staff/pages/index.php'); ?>">&laquo; Back to list</a>
 
 <!-- url encode helps to deal with special character in the query part of the url -->
+<div id="content">
+
+  <a class="back-link" href="<?php echo url_for('/staff/subjects/index.php'); ?>">&laquo; Back to List</a>
+
+  <div class="subject show">
+
+    <h1>Subject: <?php echo $subject['menu_name']; ?></h1>
+
+    <div class="attributes">
+      <dl>
+        <dt>Menu Name</dt>
+        <dd><?php echo $subject['menu_name']; ?></dd>
+      </dl>
+      <dl>
+        <dt>Position</dt>
+        <dd><?php echo $subject['position']; ?></dd>
+      </dl>
+      <dl>
+        <dt>Visible</dt>
+        <dd><?php echo $subject['visible'] == '1' ? 'true' : 'false'; ?></dd>
+      </dl>
+    </div>
+
+  </div>
+
+</div>
 
 

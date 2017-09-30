@@ -7,23 +7,55 @@ if(!isset($_GET['id'])){
 redirect_to(url_for('/staff/subjects/index.php'));
 }
 $id=$_GET['id'];
-$menu_name = '' ;
-$position = '' ;
-$visible = '' ;
+
+
 if(is_post_request())
 {
-$menu_name = $_POST['menu_name'] ;
-$position = $_POST['postion'] ;
-$visible = $_POST['visible'] ;
+$subject=[];
+  $subject['id'] = $id;
+$subject['menu_name']=$_POST['menu_name'] ;
+$subject['position']=$_POST['position'] ;
+$subject['visible']=$_POST['visible'] ;
+/*
+$errors = validate_subject($subject);
+if(!empty($errors)){
 
-echo "Form Parameters<br />";
-echo "Menu name: ".$menu_name."<br />";
-echo "Position: ".$position."<br />";
-echo "Visible: ".$visible."<br />";
+
+var_dump($errors);
+exit;
+
+
+}
+*/
+
+$sql="update subjects set ";
+$sql.="menu_name='".$subject['menu_name']."', ";
+$sql.="position='".$subject['position']."', ";
+$sql.="visible='".$subject['visible']."' ";
+$sql.="where id='".$id."' ";
+$sql.="limit 1";
+
+$result=mysqli_query($db,$sql);
+//for update statements the result is true/false
+if($result)
+{
+redirect_to(url_for('/staff/subjects/show.php?id='.$id));
+}
+else
+{
+//update failed
+echo mysqli_error($db);  //outputs the last query error
+db_disconnect($db);
+exit;
+}
 
 }else
 {
 //redirect_to(url_for('/staff/subjects/new.php'));
+$subject = find_subject_by_id($id);
+$subject_set=find_all_subjects();
+$subject_count=mysqli_num_rows($subject_set);
+mysqli_free_result($subject_set);
 }
 
 ?>
@@ -38,13 +70,22 @@ echo "Visible: ".$visible."<br />";
 <form action="<?php echo url_for('/staff/subjects/edit.php?id='.$id); ?>" method="post">
 <dl>  
 <dt>menu Name</dt>
-<dd><input type="text" name="menu_name" value="<?php echo $menu_name; ?>" /></dd>
+<dd><input type="text" name="menu_name" value="<?php echo $subject['menu_name']; ?>" /></dd>
 </dl>
 <dl>
 <dt> Position</dt>
 <dd>
 <select name="postion">
-<option value="1">1</option>
+<?php
+  for($i=1; $i <= $subject_count; $i++) {
+    echo "<option value=\"{$i}\"";
+    if($subject["position"] == $i) {
+      echo " selected";
+    }
+    echo ">{$i}</option>";
+  }
+?>
+
 </select>
 </dd>
 </dl>
@@ -52,7 +93,8 @@ echo "Visible: ".$visible."<br />";
 <dt>Visible</dt>
 <dd>
 <input type="hidden" name="visible" value="0" />
-<input type="checkbox" name="visible" value="1" />
+<input type="checkbox" name="visible" value="1"<?php 
+ if($subject['visible'] =="1"){echo"checked";}?> />
 </dd>
 </dl>
 <div id="operation">
