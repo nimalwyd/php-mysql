@@ -1,4 +1,4 @@
-
+note: always use lowercase names for database names and table names to avoid case sensitivity problem between windows and unix systems
 mysql -u root -p
 mysql -u root -p databasename  // it will directly connect to the database
 mysql -u root -p databasename < thepathtothesqlfilewhichwewanttoimportintothedatabase   // it 						   will directly connect to the database and load it with specified sql file
