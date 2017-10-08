@@ -16,6 +16,7 @@ insert into table_name (col1,col2,col3) values (val1, val2,val3);
 update table set col1 ='this', col2 ='that' where id =1;
 update table_name  set col3=4 where id =5;
 delete from table_name where id = 1;  // you can also add limit 1 to ensure that only one record is deleted
+ALTER TABLE TABLE_NAME ADD COLUMN COLUMN_NAME CHAR(64) 
 Alter table table_name add index index_name (column); 
 		//primary keys are automatically given index, so we dont have to worry about 
 		// them, but foreign keys are not given index, so we have to give index for 			// them
