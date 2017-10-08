@@ -1,7 +1,7 @@
 
 mysql -u root -p
 mysql -u root -p databasename  // it will directly connect to the database
-mysql -u root -p databasename thepathtothesqlfilewhichwewanttoimportintothedatabase   // it 						   will directly connect to the database and load it with specified sql file
+mysql -u root -p databasename < thepathtothesqlfilewhichwewanttoimportintothedatabase   // it 						   will directly connect to the database and load it with specified sql file
 create database database-name;
 SHOW DATABASES;  // capitalisation dont matter in mysql except for database and table  name
 use database_name;
