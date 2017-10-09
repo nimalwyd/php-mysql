@@ -10,26 +10,10 @@ create table;
 show tables;
 show columns from table_name;
 drop table table_name;
-select * from table_name where column1= 'sometext' order by column1 asc;
-select * from table_name where col1='something' and col2='something';
-insert into table_name (col1,col2,col3) values (val1, val2,val3);
-update table set col1 ='this', col2 ='that' where id =1;
-update table_name  set col3=4 where id =5;
-delete from table_name where id = 1;  // you can also add limit 1 to ensure that only one record is deleted
-ALTER TABLE TABLE_NAME ADD COLUMN COLUMN_NAME CHAR(64) 
-Alter table table_name add index index_name (column); 
-		//primary keys are automatically given index, so we dont have to worry about 
-		// them, but foreign keys are not given index, so we have to give index for 			// them
-
 use databasename;
 soure thepathtothesqlfilewhichwewanttoimportintothedatabase;  //load the database with specified sql file
-
-
 GRANT ALL PRIVILEGES ON db_name.* TO 'username'@'localhost' IDENTIFIED BY 'password';
 SHOW GRANTS FOR 'username'@'localhost'; 
-
-alter table table_name add index index_name (column_name_to_add_index);  // it will add index 		on the foreign keys in the table
-
 -----------------------------------------------------------------------------------------
 PhP to issue SQL commands
 ------------------------------------------------------------------------------------------
@@ -39,7 +23,6 @@ it can be done in 3 ways(all three are extremly similiar)
 3)PDO - PHP Data Objects
 
 below we follow mysqli.
-
 mysqli_connect($host,$user,$password,$database);  // hostcan be 		localhost or an ip address
 	ex: $connection= mysqli_connect($host,$user,$password,$database);
 mysqli_query($connection,$query);
@@ -50,10 +33,3 @@ mysqli_connect_errno(); // will return the error no to the last call made to con
 mysqli_connect_error(); // same as above, but it will also return some string about the above error
 mysqli_free_result($result_set);
 mysqli_close($connection);
-
-
-
-
-
-
-
